@@ -21,6 +21,8 @@ int main() {
     may prefer endl
     */
    
-    std::cout << "It's me, your first program!" << "\n"; 
+    std::cout << "It's me, your first program!" << "\n";
+
+    /* Zero indicates success; 1 indicates failure */
     return 0;
 }
