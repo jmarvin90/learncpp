@@ -136,6 +136,7 @@ int main() {
         row_0, row_1, row_2, row_3, row_4, row_5, row_6, row_7, row_8
     };
 
+    show_grid(grid);
     solve(grid, grid);              // Solve the grid   
     show_grid(grid);                // Show the solved grid on the screen
 
