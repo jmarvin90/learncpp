@@ -16,10 +16,10 @@ void show_grid(const std::vector<std::vector<int>> &grid) {
 
 std::vector<int> next_blank(const std::vector<std::vector<int>> &grid) {
     /* Find the x, y for the 'next' 0 val in the grid (from top left). */
-    for (int i=0; i<grid.size(); i++) {
-        for (int j=0; j<grid[i].size(); j++) {
-            if (grid[i][j] == 0) {
-                return std::vector<int> {j, i};
+    for (int row=0; row<grid.size(); row++) {
+        for (int col=0; col<grid[row].size(); col++) {
+            if (grid[row][col] == 0) {
+                return std::vector<int> {col, row};
             }
         }
     }
