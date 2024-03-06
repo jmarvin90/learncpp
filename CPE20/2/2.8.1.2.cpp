@@ -92,23 +92,19 @@ bool proposed_number_is_valid(
     return !in_row && !in_col && !in_zone;
 }
 
-bool grid_is_solved(const std::vector<std::vector<int>>& grid) {
-    /* Check whether the grid has been solved. */
-    return next_blank(grid) == std::vector<int>{-1, -1};
-}
-
 bool solve(
     const std::vector<std::vector<int>> grid, 
     std::vector<std::vector<int>>& origin
 ) {
     /* Solve the grid using a backtracking algorithm. */
-    if (grid_is_solved(grid)) {
+    std::vector<int> blank {next_blank(grid)};
+
+    if (blank == std::vector<int> {-1, -1}) {
         origin = grid;
         return true;
     }
 
     for (int num=1; num<=grid.size(); num++) {
-        std::vector<int> blank {next_blank(grid)};
         if (proposed_number_is_valid(grid, blank[0], blank[1], num)) {
             std::vector<std::vector<int>> new_grid {grid};
             new_grid[blank[1]][blank[0]] = num;
