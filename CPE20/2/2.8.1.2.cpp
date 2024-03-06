@@ -2,7 +2,7 @@
 #include <cmath>
 #include <algorithm>
 
-void show_grid(const std::vector<std::vector<int>> &grid) {
+void show_grid(const std::vector<std::vector<int>>& grid) {
     /* Show the grid on the screen. */
     for (int row=0; row<grid.size(); row++) {
         for (int col: grid[row]) {
@@ -14,7 +14,7 @@ void show_grid(const std::vector<std::vector<int>> &grid) {
     std::cout << "\n";
 }
 
-std::vector<int> next_blank(const std::vector<std::vector<int>> &grid) {
+std::vector<int> next_blank(const std::vector<std::vector<int>>& grid) {
     /* Find the x, y for the 'next' 0 val in the grid (from top left). */
     for (int row=0; row<grid.size(); row++) {
         for (int col=0; col<grid[row].size(); col++) {
@@ -28,8 +28,8 @@ std::vector<int> next_blank(const std::vector<std::vector<int>> &grid) {
 }
 
 std::vector<int> get_column(
-    const std::vector<std::vector<int>> &grid,
-    const int column_number
+    const std::vector<std::vector<int>>& grid,
+    int column_number
 ) {
     /* Return the values for the column at the specified position. */
     std::vector<int> output;
@@ -41,14 +41,14 @@ std::vector<int> get_column(
     return output;
 }
 
-int get_zone_width(const std::vector<std::vector<int>> &grid) {
+int get_zone_width(const std::vector<std::vector<int>>& grid) {
     /* Calculate the width of the zones in the grid. */
     return (int)std::sqrt(grid.size());
 }
 
 int get_zone_start(
-    const std::vector<std::vector<int>> &grid,
-    const int coord
+    const std::vector<std::vector<int>>& grid,
+    int coord
 ) {
     /* Find the value representing the zone start for a given coordinate. */
     int zone_width {get_zone_width(grid)};
@@ -56,8 +56,8 @@ int get_zone_start(
 }
 
 std::vector<int> get_zone(
-    const std::vector<std::vector<int>> &grid,
-    const int x, const int y
+    const std::vector<std::vector<int>>& grid,
+    int x, int y
 ) {
     /* Return values from the zone at the given coordinates. */
     int zone_width {get_zone_width(grid)};
@@ -74,14 +74,14 @@ std::vector<int> get_zone(
     return output;
 }
 
-bool number_in_vector(const std::vector<int> &vec, int val) {
+bool number_in_vector(const std::vector<int>& vec, int val) {
     /* Check whether a specified number appears in the input vector. */
     return std::find(vec.begin(), vec.end(), val) != vec.end();
 }
 
 bool proposed_number_is_valid(
-    const std::vector<std::vector<int>> &grid,
-    const int x, const int y, const int number
+    const std::vector<std::vector<int>>& grid,
+    int x, int y, int number
 ) {
     /* Validate whether a specified number is valid at the given coordinates. */
     std::vector<int> col {get_column(grid, x)};
@@ -92,14 +92,14 @@ bool proposed_number_is_valid(
     return !in_row && !in_col && !in_zone;
 }
 
-bool grid_is_solved(std::vector<std::vector<int>> &grid) {
+bool grid_is_solved(const std::vector<std::vector<int>>& grid) {
     /* Check whether the grid has been solved. */
     return next_blank(grid) == std::vector<int>{-1, -1};
 }
 
 bool solve(
-    std::vector<std::vector<int>> grid, 
-    std::vector<std::vector<int>> &origin
+    const std::vector<std::vector<int>> grid, 
+    std::vector<std::vector<int>>& origin
 ) {
     /* Solve the grid using a backtracking algorithm. */
     if (grid_is_solved(grid)) {
