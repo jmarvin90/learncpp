@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 int search(std::vector<int>& vec, int val) {
     int power{1};

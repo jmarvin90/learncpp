@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 int main() {
     std::vector<int>    numbers     {1, 5, 10, 20, 50};

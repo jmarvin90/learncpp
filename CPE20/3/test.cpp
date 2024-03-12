@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 void question_5() {
     int i {2};

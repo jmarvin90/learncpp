@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 void show_vector(const std::vector<int>& vec) {
     for (int i=0; i<vec.size(); i++) {
