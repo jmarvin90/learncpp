@@ -107,6 +107,20 @@ void pass_by_address_by_reference() {
                 << " to say that y is null.\n";
 }
 
+const int& pass_by_return_by_reference(
+    const int& number_1, const int& number_2
+) {
+    return (number_1>number_2) ? number_1 : number_2;
+}
+
+void pass_by_return_by_reference() {
+    const int number_1{10};
+    const int number_2{20};
+    std::cout   << "The biggest number was: "  
+                << pass_by_return_by_reference(number_1, number_2)
+                << "\n";
+}
+
 int main() {
     dereference_operator();
     pointer_example();
@@ -116,5 +130,6 @@ int main() {
     pointers_to_const();
     pass_by_address();
     pass_by_address_by_reference();
+    pass_by_return_by_reference();
     return 0;
 }

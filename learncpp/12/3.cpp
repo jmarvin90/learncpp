@@ -10,7 +10,7 @@ void basic_references() {
 }
 
 void references_to_const() {
-    const int x{5};             // Value is const...can't be referenced?
+    const int x{5};             // Value is const
     // int& y{x};               // Should error
     const int& y{x};            // If value is const, reference must be
 
@@ -51,10 +51,50 @@ void reference_to_rvalue() {
     std::cout << ref << "\n";       // Should show 999;
 }
 
+void act_on_reference(int& input) {
+    input++;                        // increment the referenced var; no return
+}
+
+int& return_reference(int& input) {
+    input++;                        // increment the referenced var
+    return input;                   // return reference
+
+}
+
+void test_act_return_reference() {
+    int x{1};
+    int y{10};
+
+    act_on_reference(x);            // no return; should increment x
+    return_reference(y);            // return discarded; increment y
+
+    std::cout << x << y << "\n";    // should be 211
+}
+
+int& modify_referenced_var_modifier(int& input) {
+    input++;
+    return input;
+}
+
+void modify_referenced_var() {
+    int x{13};                      // Straightforward
+    
+    /*
+        The function's return type is a reference, which means we can 
+        operate on its output
+    */
+    modify_referenced_var_modifier(x) += 1; 
+
+    std::cout << x << "\n";         // Should show 15
+}
+
 int main() {
     basic_references();
     references_to_const();
     // dangling_reference();        // Commented out as it'll cause an error!
     reference_to_rvalue();
+    test_act_return_reference();
+    modify_referenced_var();
+
     return 0;
 }

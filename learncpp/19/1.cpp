@@ -14,7 +14,10 @@ void new_and_delete() {
         at that address. Pointer variable survives but is now dangling
     */
     delete ptr;
-    ptr = nullptr;                  // Have to set to nullptr manually
+    ptr = nullptr;
+    /*
+        Have to set to nullptr manually - or, let it go out of scope?
+    */
 }
 
 void nothrow() {
@@ -25,7 +28,6 @@ void nothrow() {
     int* ptr {new (std::nothrow) int{16}};      
     delete ptr;
     ptr = nullptr;
-    std::cout << *ptr << "\n";
 }
 
 void null_ptr_deletion() {
@@ -64,7 +66,55 @@ void avoid_memory_leak() {
     delete my_ptr;
 }
 
+void assignment_memory_leak() {
+    /*
+        The address for the memory allocated by new is lost when the pointer
+        is re-assigned. There's then no way to de-allocate that memory: 
+        a memory leak.
+    */
+    int* my_ptr{new int{5}};
+    int my_int{5};
+    my_ptr = &my_int;
+}
+
+void assignment_avoid_memory_leak() {
+    /*
+        Using delete before re-assignment allows the pointer to be re-assigned
+        following de-allocation of the memory assigned to the original 
+        variable, avoiding a memory leak.
+    */
+   int* my_ptr{new int{5}};
+   int my_int{5};
+
+   delete my_ptr;
+   my_ptr = &my_int;
+}
+
+std::size_t get_length() {
+    std::size_t length {};
+    std::cout << "Please enter the required array length: ";
+    std::cin >> length;
+    return length;
+}
+
+void dynamically_allocated_arrays() {
+    /* 
+        The size_t type may need to be used when specifying the size of a 
+        dynamically sized array whose length not known at compile-time
+    */
+    std::size_t length {get_length()};
+    int* array{ new int[length]{}};         // Zero initialised 
+    std::cout << "Initialised an array of length: " << length << "\n";
+    delete[] array;
+}
+
 int main() {
     new_and_delete();
     nothrow();
+    null_ptr_deletion();
+    memory_leak();
+    avoid_memory_leak();
+    assignment_memory_leak();
+    assignment_avoid_memory_leak();
+    dynamically_allocated_arrays();
 }
