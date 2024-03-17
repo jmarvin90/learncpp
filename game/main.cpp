@@ -10,5 +10,10 @@ int main() {
         my_edge.intermediary_points()
     };
 
+    std::cout << "\n\n###########################################\n\n";
+    for (int i=0; i<my_points.size(); i++) {
+        std::cout << my_points[i].get_x() << " " << my_points[i].get_y() << "\n"; 
+    }
+
     return 0;
 }

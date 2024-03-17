@@ -4,11 +4,12 @@
 class Point {
 private:
     // The coordinates
-    int m_x {};
-    int m_y {};
+    double m_x {};
+    double m_y {};
 
 public:
     // Declare public member functions
+    Point(double x, double y);
     Point(int x, int y);
     friend Point operator+(const Point& p1, const Point& p2);
     friend Point operator*(const Point& p1, const Point& p2);

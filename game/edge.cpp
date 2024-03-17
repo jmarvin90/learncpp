@@ -1,4 +1,5 @@
 #include "edge.h"
+#include <cmath>
 
 Edge::Edge(const Point& origin, const Point& termination)
     : m_origin {origin}
@@ -67,7 +68,7 @@ double Edge::length() const {
 }
 
 int Edge::diagonal_distance() const {
-    return std::max(abs(x_diff()), abs(y_diff()));
+    return std::max(std::abs(x_diff()), abs(y_diff()));
 }
 
 bool Edge::intersects(const Edge& edge) const {
@@ -103,10 +104,10 @@ std::vector<Point> Edge::intermediary_points(int n_steps) const {
         n_steps = diagonal_distance();
     }
 
-    for (int i=1; i<=n_steps; i++) {
-        double t {static_cast<double>(i) / n_steps};
-        int x {interpolate(m_origin.get_x(), m_termination.get_x(), t)};
-        int y {interpolate(m_origin.get_y(), m_termination.get_y(), t)};
+    for (float i=1.; i<=n_steps; i++) {
+        double t {i / n_steps};
+        double x {std::lerp(m_origin.get_x(), m_termination.get_x(), t)};
+        double y {std::lerp(m_origin.get_y(), m_termination.get_y(), t)};
         points.insert(points.end() -1, Point(x, y));
     }
 
@@ -131,10 +132,4 @@ int orientation(const Point& p1, const Point& p2, const Point& p3) {
     }
 
     return 0;
-}
-
-int interpolate(int start, int end, double step) {
-    int difference {end - start};
-    double portion {difference * step};
-    return std::round(start + portion);
 }
