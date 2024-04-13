@@ -1,44 +1,55 @@
 #include <iostream>
 
-// class SomeClass {
-//     // constant: must be initialised and cannot be changed
-//     const std::string m_some_string;
-//     SomeClass(std::string some_string);
-// };
+template <typename T>
+T some_maffs(T a, T b) {
+    return a + b;
+}
 
-// /*
-//     Issue: in the constructor body we are performing ASSIGNMENT and not
-//     INITIALISATION; we can't perform assignment on a const, so it should break
-// */
+class MyClass {
+    std::string m_name {};
 
-// SomeClass::SomeClass(std::string some_string) {
-//     m_some_string = some_string;        // Won't compile
-// }   
-
-// int main() {
-//     SomeClass my_object("Some string");
-// }
-
-class Ball{
-    std::string m_colour{};
-    double m_radius{};
-
-    public:
-        Ball(std::string colour, double radius)
-            : m_colour{colour}
-            , m_radius{radius}
-        {}
-
-        const std::string& get_colour() const {return m_colour;}
-        double get_radius() const {return m_radius;}
+public:
+    MyClass(std::string name);
+    void show() const;
+    friend class YourClass;
 };
 
-void print_info(const Ball& ball) {
-    std::cout   << "Colour: " << ball.get_colour() << "; "
-                << "Radius: " << ball.get_radius() << "\n";
+MyClass::MyClass(std::string name) 
+    : m_name{name}
+    {}
+
+void MyClass::show() const {
+    std::cout << m_name << "\n";
+}
+
+std::string get_name() {
+    std::string name;
+    std::cout << "Please enter your name: ";
+    std::cin >> name;
+    return name;
+}
+
+class YourClass {
+    std::string m_your_name {};
+
+public:
+    YourClass(MyClass& my_class);
+    void show() const;
+};
+
+YourClass::YourClass(MyClass& my_class)
+    : m_your_name{my_class.m_name}
+    {}
+
+void YourClass::show() const {
+    std::cout << m_your_name << "\n";
 }
 
 int main() {
-    Ball my_ball("Red", 0.412);
-    print_info(my_ball);
+    MyClass my_class{get_name()};
+    my_class.show();
+    YourClass your_class{my_class};
+    your_class.show();
+    std::cout << some_maffs(1, 2) << " " << some_maffs(3.0f, 4.0f) << "\n";
 }
+
